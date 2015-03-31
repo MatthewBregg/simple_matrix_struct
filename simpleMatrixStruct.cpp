@@ -20,7 +20,7 @@ template<class T = long long>struct matrix{
     std::vector<T> getCol(std::size_t i) const{
         std::vector<T> result = std::vector<T>(this->col_size());
         for(std::size_t j = 0; j!=this->col_size(); ++j){
-            result.at(i) == matrix_backing.at(i).at(j);
+            result.at(i) = matrix_backing.at(i).at(j);
         }
         return result;
     }
