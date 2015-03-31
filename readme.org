@@ -1,1 +1,5 @@
 * A simple and quick matrix class I whipped up in the morning, could be useful for matrix related programming challenges
+Features matrix multiplication, pow, and some basic opts.
+Quick and dirty, designed to be easy to toss into a single file for programming challenges.
+Not for any long term use. 
+Will add operations as I encounter more matrix programming challenges.
