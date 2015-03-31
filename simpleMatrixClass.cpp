@@ -2,15 +2,22 @@
 #include<vector>
 #include<stdexcept>
 
-template<class T = long long>struct matrix{
+template<class T = long long>class matrix{
     std::vector<std::vector<T>> matrix_backing;
+public:
     matrix(const matrix &in){
         this->matrix_backing = in.matrix_backing;
     }
     std::size_t row_size() const{
         return matrix_backing.size();
     }
+    T& get(std::size_t row, std::size_t col){
+        return matrix_backing.at(row).at(col);
+    }
 
+    T get(std::size_t row, std::size_t col) const{
+        return matrix_backing.at(row).at(col);
+    }
     std::size_t col_size() const{
         if(matrix_backing.size() != 0){
             return matrix_backing.at(0).size();
@@ -20,7 +27,7 @@ template<class T = long long>struct matrix{
     std::vector<T> getCol(std::size_t i) const{
         std::vector<T> result = std::vector<T>(this->col_size());
         for(std::size_t j = 0; j!=this->col_size(); ++j){
-            result.at(i) = matrix_backing.at(i).at(j);
+            result.at(i) = get(i,j);
         }
         return result;
     }
@@ -38,7 +45,7 @@ template<class T = long long>struct matrix{
         for(std::size_t i = 0; i!=result.row_size();++i){
             for(std::size_t j = 0; j!=result.col_size();++j){
                 for(std::size_t k = 0; k!=A.col_size();++k){
-                    result.matrix_backing.at(i).at(j) +=A.matrix_backing.at(i).at(k)*B.matrix_backing.at(k).at(j);
+                    result.get(i,j) +=A.get(i,k)*B.get(k,j);
                 }
             }
         }
@@ -60,7 +67,7 @@ template<class T = long long>struct matrix{
             for(std::size_t i = 0; i!=in.row_size();++i){
                 os<< "| ";
                 for(std::size_t j = 0; j!=in.col_size();++j){
-                    os << in.matrix_backing.at(i).at(j) << " ";
+                    os << in.get(i,j) << " ";
                 }
                 os << "|" << std::endl;
             }
@@ -76,17 +83,20 @@ int main(){
 
     matrix<> A(2,2,1);
     matrix<> B(2,1,2);
-    A.matrix_backing.at(0).at(1) = 10;
-    B.matrix_backing.at(0).at(0) = 5;
+    A.get(0,1) = 10;
+    B.get(0,0) = 5;
     std::cout << A << std::endl <<  B << std::endl;
     std::cout << A*B << std::endl;
 
     std::cout << "Begin Test" << std::endl;
     matrix<> T(2,2,1);
 
-    T.matrix_backing.at(0).at(0) = 0;
+    T.get(0,0) = 0;
     std::cout << T << std::endl;
     matrix<> F1 (2,1,1);
+    F1.getCol(0);
+    F1.col_size();
+    F1.row_size();
     std::cout << matrix<>::matrix_pow(T,5)*F1 << std::endl;
 
 }
