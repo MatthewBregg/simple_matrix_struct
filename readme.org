@@ -1,0 +1,1 @@
+* A simple and quick matrix class I whipped up in the morning, could be useful for matrix related programming challenges
